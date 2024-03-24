@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'likes'
 ]
 
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING':    False,
+}
+
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
