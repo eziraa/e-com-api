@@ -4,13 +4,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Product
-from .serialaizers import ProductSeriallizer
+from .serializers import ProductSerializer
 
 
 @api_view()
 def ProductList(request):
     products = Product.objects.all()
-    serializer = ProductSeriallizer(products, many=True)
+    serializer = ProductSerializer(products, many=True)
 
     return Response(serializer.data)
 
@@ -18,5 +18,5 @@ def ProductList(request):
 @api_view()
 def ProductDetail(request, id):
     product = get_object_or_404(Product, pk=id)
-    serializer = ProductSeriallizer(product)
+    serializer = ProductSerializer(product)
     return Response(serializer.data)
