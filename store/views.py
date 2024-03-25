@@ -21,19 +21,21 @@ def ProductList(request):
         return Response(serializer.data, status=201)
 
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def ProductDetail(request, id):
     product = get_object_or_404(Product, pk=id)
     if request.method == 'GET':
         serializer = ProductSerializer(product, context={'request': request})
         return Response(serializer.data)
-    else:
+    elif request.method == 'PUT':
         serializer = ProductSerializer(
             product, data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
-
+    elif request.method == 'DELETE':
+        product.delete()
+        return Response("Deleted", status=status.HTTP_204_NO_CONTENT)
 
 @api_view()
 def CollectionList(request):
