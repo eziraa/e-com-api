@@ -6,7 +6,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import *
-from .serializers import AddressSerializer, CartSerializer, CategorySerializer, CustomerSerializer, OrderItemSerializer, OrderSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer
+from .serializers import AddressSerializer, CartSerializer, CategorySerializer, CustomerSerializer, OrderItemSerializer, OrderSerializer, PaymentSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer
 
 
 class ProductListView(APIView):
@@ -146,5 +146,18 @@ class CartDetailView(APIView):
     def get(self, request, id):
         cart = get_object_or_404(Cart, pk=id)
         serializer = CartSerializer(cart)
+        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
 
+
+class PaymentListView(APIView):
+    def get(self, request):
+        payments = Payment.objects.all()
+        serializer = PaymentSerializer(payments)
+        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+
+
+class PaymentDetailsView(APIView):
+    def get(self, request, id):
+        payment = get_object_or_404(Payment, pk=id)
+        serializer = PaymentSerializer(payment)
         return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
