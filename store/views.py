@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import Product, Collection
-from .serializers import ProductSerializer, CollectionSerializer, SourceSerializer
+from .serializers import ProductSerializer, CollectionSerializer
 
 
 class ProductList(APIView):
