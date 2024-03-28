@@ -1,42 +1,31 @@
 from newsapi import NewsApiClient
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import *
 from .serializers import AddressSerializer, CartSerializer, CategorySerializer, CustomerSerializer, DiscountSerializer, OrderItemSerializer, OrderSerializer, PaymentSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer, ReviewSerializer, ShippingsSerializer, WishlistSerializer
 
 
-class ProductListView(APIView):
-    def get(self, request):
-        collections = Collection.objects.all()
-        serializer = CollectionSerializer(collections, many=True)
-        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+class ProductListView(ListAPIView):
+    queryset = Product.objects.select_related("collection")
+    serializer_class = ProductSerializer
 
 
-
-class ProductDetail(APIView):
-    def get(self, request, id):
-        product = get_object_or_404(Product, pk=id)
-        serializer = ProductSerializer(product, context={'request': request})
-        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+class ProductDetail(RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
-class CollectionListView(APIView):
-    def get(self, request):
-        collections = Collection.objects.all()
-        serializer = CollectionSerializer(collections, many=True)
-        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+class CollectionListView(ListAPIView):
+    queryset = Collection.objects.all()
+    serializer_class = CollectionSerializer
 
 
-
-class CollectionDetailView(APIView):
-    def get(self, request, id):
-        collection = get_object_or_404(Collection, pk=id)
-        serializer = CollectionSerializer(collection)
-        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
-
+class CollectionDetailView(RetrieveAPIView):
+    queryset = Collection.objects.all()
+    serializer_class = CollectionSerializer
 
 
 class PromotionListView(APIView):
