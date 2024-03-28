@@ -133,3 +133,10 @@ class Review(models.Model):
 class Wishlist(models.Model):
     user = models.ForeignKey(AbstractUser, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
+
+
+class Discount(models.Model):
+    code = models.CharField(max_length=50)
+    discount_type = models.CharField(max_length=50)  # e.g., Percentage, Amount
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    expiry_date = models.DateField()
