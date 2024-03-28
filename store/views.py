@@ -1,5 +1,4 @@
 from newsapi import NewsApiClient
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
@@ -42,7 +41,7 @@ class CollectionDetailView(APIView):
 
 class PromotionListView(APIView):
     def get(self, request):
-        collections = Promotion.objects.all()
+        promotions = Promotion.objects.all()
         serializer = PromotionSerializer(promotions, many=True)
         return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
 
@@ -208,7 +207,7 @@ class DiscountDetailsView(APIView):
 class ShippingListView(APIView):
     def get(self, request):
         shippings = Shipping.objects.all()
-        serializer = ShippingsSerializer(shi)
+        serializer = ShippingsSerializer(shippings)
         return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
 
 
