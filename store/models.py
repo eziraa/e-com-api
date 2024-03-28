@@ -1,12 +1,7 @@
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 
-
-class Profile(models.Model):
-    user = models.OneToOneField(AbstractUser, on_delete=models.CASCADE)
-    address = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=20)
 
 
 class Category(models.Model):
@@ -125,13 +120,13 @@ class Payment(models.Model):
 
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    user = models.ForeignKey(AbstractUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField()
     comment = models.TextField()
 
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(AbstractUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
 
 
