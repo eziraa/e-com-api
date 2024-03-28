@@ -128,3 +128,8 @@ class Review(models.Model):
     user = models.ForeignKey(AbstractUser, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField()
     comment = models.TextField()
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(AbstractUser, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product)
