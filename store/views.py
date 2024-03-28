@@ -6,7 +6,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import *
-from .serializers import CategorySerializer, CustomerSerializer, OrderSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer
+from .serializers import CategorySerializer, CustomerSerializer, OrderItemSerializer, OrderSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer
 
 
 class ProductListView(APIView):
@@ -67,8 +67,8 @@ class CategoryDetailView(APIView):
 
 class CustomerListView(APIView):
     def get(self, request):
-        categories = Customer.objects.all()
-        serializer = CustomerSerializer(categories, many=True)
+        customers = Customer.objects.all()
+        serializer = CustomerSerializer(customers, many=True)
         return Response(serializer.data)
 
 
@@ -81,8 +81,8 @@ class CustomerDetailView(APIView):
 
 class OrderListView(APIView):
     def get(self, request):
-        categories = Order.objects.all()
-        serializer = OrderSerializer(categories, many=True)
+        orders = Order.objects.all()
+        serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
 
 
@@ -90,4 +90,18 @@ class OrderDetailView(APIView):
     def get(self, request, id):
         order = get_object_or_404(Order, pk=id)
         serializer = CategorySerializer(order)
+        return Response(serializer.data)
+
+
+class OrderItemListView(APIView):
+    def get(self, request):
+        orderItems = OrderItem.objects.all()
+        serializer = OrderItemSerializer(orderItems, many=True)
+        return Response(serializer.data)
+
+
+class OrderItemDetailView(APIView):
+    def get(self, request, id):
+        order = get_object_or_404(OrderItem, pk=id)
+        serializer = OrderItemSerializer(order)
         return Response(serializer.data)
