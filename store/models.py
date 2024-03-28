@@ -140,3 +140,9 @@ class Discount(models.Model):
     discount_type = models.CharField(max_length=50)  # e.g., Percentage, Amount
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     expiry_date = models.DateField()
+
+
+class Shipping(models.Model):
+    name = models.CharField(max_length=100)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+    estimated_delivery_time = models.PositiveSmallIntegerField()  # in days
