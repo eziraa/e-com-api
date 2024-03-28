@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Collection
+from .models import *
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -23,3 +23,13 @@ class CollectionSerializer(serializers.ModelSerializer):
         fields = ('id', 'featured_product')
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+
+class PromotionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Promotion
+        fields = "__all__"
