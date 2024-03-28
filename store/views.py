@@ -6,7 +6,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import *
-from .serializers import AddressSerializer, CartSerializer, CategorySerializer, CustomerSerializer, OrderItemSerializer, OrderSerializer, PaymentSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer, ReviewSerializer, WishlistSerializer
+from .serializers import AddressSerializer, CartSerializer, CategorySerializer, CustomerSerializer, DiscountSerializer, OrderItemSerializer, OrderSerializer, PaymentSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer, ReviewSerializer, WishlistSerializer
 
 
 class ProductListView(APIView):
@@ -188,4 +188,18 @@ class WishListDetailsView(APIView):
     def get(self, request, id):
         review = get_object_or_404(Wishlist, pk=id)
         serializer = WishlistSerializer(review)
+        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+
+
+class DiscountListView(APIView):
+    def get(self, request):
+        reviews = Discount.objects.all()
+        serializer = DiscountSerializer(reviews)
+        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
+
+
+class DiscountDetailsView(APIView):
+    def get(self, request, id):
+        review = get_object_or_404(Discount, pk=id)
+        serializer = DiscountSerializer(review)
         return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
