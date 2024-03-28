@@ -141,3 +141,10 @@ class CartListView(APIView):
         serializer = CartSerializer(carts, many=True)
         return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
 
+
+class CartDetailView(APIView):
+    def get(self, request, id):
+        cart = get_object_or_404(Cart, pk=id)
+        serializer = CartSerializer(cart)
+
+        return Response(serializer.data, status=status.HTTP_404_NOT_FOUND)
