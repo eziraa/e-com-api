@@ -54,6 +54,7 @@ class CollectionListView(APIView):
         return Response(serializer.data)
 
 
+class CollectionDetailView(APIView):
     def get(self, request, id):
         collection = get_object_or_404(Collection, pk=id)
         serializer = CollectionSerializer(collection)
