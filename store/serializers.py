@@ -81,3 +81,15 @@ class WishlistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wishlist
         fields = "__all__"
+
+
+class DiscountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Discount
+        fields = "__all__"
+
+
+class ShippingsSerializer(serializers.Serializer):
+    class Meta:
+        model = Shipping
+        fields = "__all__"
