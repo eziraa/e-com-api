@@ -6,7 +6,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework import status
 from .models import *
-from .serializers import CategorySerializer, CustomerSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer
+from .serializers import CategorySerializer, CustomerSerializer, OrderSerializer, ProductSerializer, CollectionSerializer, PromotionSerializer
 
 
 class ProductListView(APIView):
@@ -76,4 +76,18 @@ class CustomerDetailView(APIView):
     def get(self, request, id):
         customer = get_object_or_404(Customer, pk=id)
         serializer = CustomerSerializer(customer)
+        return Response(serializer.data)
+
+
+class OrderListView(APIView):
+    def get(self, request):
+        categories = Order.objects.all()
+        serializer = OrderSerializer(categories, many=True)
+        return Response(serializer.data)
+
+
+class OrderDetailView(APIView):
+    def get(self, request, id):
+        order = get_object_or_404(Order, pk=id)
+        serializer = CategorySerializer(order)
         return Response(serializer.data)
