@@ -62,3 +62,16 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         models = CartItem
         fields = "__all__"
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = Payment
+        fields = "__all__"
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Review
+        fields = "__all__"
