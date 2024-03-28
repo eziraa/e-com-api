@@ -1,5 +1,17 @@
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(AbstractUser, on_delete=models.CASCADE)
+    address = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=20)
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
 
 
 class Promotion(models.Model):
@@ -102,3 +114,4 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField()
+
