@@ -72,6 +72,17 @@ class Customer(models.Model):
         ordering = ['first_name', 'last_name']
 
 
+class Shipping(models.Model):
+    city = models.CharField(max_length=100, null=True, blank=True)
+    state = models.CharField(max_length=100, null=True, blank=True)
+    country = models.CharField(max_length=100, null=True, blank=True)
+    postal_code = models.CharField(max_length=100, null=True, blank=True)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+    estimated_delivery_time = models.PositiveSmallIntegerField()  # in days
+    shipping_date = models.DateTimeField(
+        auto_now=True, blank=True, null=True)  # in days
+
+
 class Order(models.Model):
     PAYMENT_STATUS_PENDING = 'P'
     PAYMENT_STATUS_COMPLETE = 'C'
@@ -91,6 +102,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    shipping = models.ForeignKey(Shipping, on_delete=models.PROTECT, null=True)
     quantity = models.PositiveSmallIntegerField()
     unit_price = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -136,9 +148,3 @@ class Discount(models.Model):
     discount_type = models.CharField(max_length=50)  # e.g., Percentage, Amount
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     expiry_date = models.DateField()
-
-
-class Shipping(models.Model):
-
-    cost = models.DecimalField(max_digits=10, decimal_places=2)
-    estimated_delivery_time = models.PositiveSmallIntegerField()  # in days
