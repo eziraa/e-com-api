@@ -37,7 +37,8 @@ class Product(models.Model):
     inventory = models.IntegerField(validators=[MinValueValidator(0)])
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
-    promotions = models.ManyToManyField(Promotion, blank=True)
+    promotion = models.ForeignKey(
+        Promotion, blank=True, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
         return self.title
@@ -138,6 +139,6 @@ class Discount(models.Model):
 
 
 class Shipping(models.Model):
-    name = models.CharField(max_length=100)
+
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     estimated_delivery_time = models.PositiveSmallIntegerField()  # in days
